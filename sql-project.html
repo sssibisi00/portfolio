@@ -1,0 +1,422 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>SQL Project • Simphiwe Sthembiso Sibisi</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="stylesheet.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <script defer src="index.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+  <div id="brand">
+    <h2>Simphiwe Sthembiso Sibisi</h2>
+  </div>
+
+  <nav class="desktop">
+
+    <a href="index.html">Home</a>
+    <a href="skills.html">Skills</a>
+    <a href="education.html">Education</a>
+    <a href="profile.html">Profile</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+
+  </nav>
+
+  <button id="hamburger" aria-label="Open menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+</header>
+
+<nav class="mobile" id="mobileMenu">
+
+  <a href="index.html">Home</a>
+  <a href="skills.html">Skills</a>
+  <a href="education.html">Education</a>
+  <a href="profile.html">Profile</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="contact.html">Contact</a>
+
+</nav>
+
+
+<main class="container">
+
+<section class="sql-project-hero">
+
+  <p><strong>SQL Portfolio Project</strong></p>
+
+  <h1>Financial Transactions & Customer Analysis</h1>
+
+  <p class="sql-project-intro">
+    I used PostgreSQL to clean and analyse customer, card and transaction data.
+    I checked missing values, duplicates, transaction errors, card usage and customer
+    transaction behaviour. I also used joins to connect the three tables.
+  </p><br>
+
+  <div class="sql-tags">
+
+    <span class="sql-tag">PostgreSQL</span>
+    <span class="sql-tag">pgAdmin 4</span>
+    <span class="sql-tag">Data Cleaning</span>
+    <span class="sql-tag">EDA</span>
+    <span class="sql-tag">JOINs</span>
+    <span class="sql-tag">CASE</span>
+    <span class="sql-tag">CTE</span>
+
+  </div>
+
+  <div class="sql-actions">
+
+    <a class="sql-btn" href="portfolio.html">Back to Portfolio</a>
+
+    <a class="sql-btn"
+       href="financial_transactions_sql_analysis.sql"
+       target="_blank">
+       Open SQL File
+    </a>
+
+  </div>
+
+</section>
+
+
+<div class="sql-stats">
+
+  <div class="sql-stat">
+    <strong>13,305,915</strong>
+    <span>Transactions</span>
+  </div>
+
+  <div class="sql-stat">
+    <strong>$571,835,522.28</strong>
+    <span>Total transaction value</span>
+  </div>
+
+  <div class="sql-stat">
+    <strong>$42.98</strong>
+    <span>Average transaction amount</span>
+  </div>
+
+</div>
+
+
+<section class="sql-section">
+
+  <h2>Project Goal</h2>
+
+  <p>
+    The goal of this project was to practise SQL using a large financial dataset.
+    I wanted to understand customer information, the cards they use,
+    their transactions and transaction errors.
+  </p>
+
+</section>
+
+
+<section class="sql-section">
+
+  <h2>Data Cleaning</h2>
+
+  <ul>
+
+    <li>Checked for duplicate IDs.</li>
+
+    <li>Checked for missing values.</li>
+
+    <li>Created clean versions of the tables so that I did not change the original data.</li>
+
+    <li>Removed the dollar sign from money columns and changed them to NUMERIC.</li>
+
+    <li>Checked why merchant_state and ZIP had missing values.</li>
+
+    <li>Found that online transactions had missing location information and changed the values to ONLINE.</li>
+
+    <li>Changed NULL values in errors to No Error.</li>
+
+  </ul>
+
+</section>
+
+
+<section class="sql-section">
+
+  <h2>Some Findings</h2>
+
+  <ul>
+
+    <li>There were 2,000 customers.</li>
+
+    <li>The average customer age was about 45.</li>
+
+    <li>The average credit score was about 710.</li>
+
+    <li>Mastercard was the most common card brand.</li>
+
+    <li>Debit was the most common card type.</li>
+
+    <li>There were 13,305,915 transactions.</li>
+
+    <li>The average transaction amount was 42.98.</li>
+
+    <li>Online transactions had the highest error rate at 2.28%.</li>
+
+    <li>Debit cards had the highest number of transaction errors.</li>
+
+  </ul>
+
+</section>
+
+
+<section class="sql-section">
+
+  <h2>SQL Code</h2>
+
+  <p>
+    Click each section below to see some of the SQL code I used.
+  </p>
+
+
+  <details>
+
+    <summary>Creating the Transactions Table</summary>
+
+    <pre><code>-- Creating the transactions table
+-- Amount is TEXT because the original data has a $ sign
+
+CREATE TABLE transactions_data (
+id INTEGER,
+date TIMESTAMP,
+client_id INTEGER,
+card_id INTEGER,
+amount TEXT,
+use_chip TEXT,
+merchant_id BIGINT,
+merchant_city TEXT,
+merchant_state TEXT,
+zip TEXT,
+mcc INTEGER,
+errors TEXT
+);</code></pre>
+
+  </details>
+
+
+  <details>
+
+    <summary>Checking for Missing Values</summary>
+
+    <pre><code>-- Checking missing values in transactions
+
+SELECT COUNT(*) FILTER (WHERE id IS NULL) AS missing_transaction_id,
+COUNT(*) FILTER (WHERE date IS NULL) AS missing_date,
+COUNT(*) FILTER (WHERE client_id IS NULL) AS missing_customer_id,
+COUNT(*) FILTER (WHERE card_id IS NULL) AS missing_card_id,
+COUNT(*) FILTER (WHERE amount IS NULL) AS missing_amount,
+COUNT(*) FILTER (WHERE merchant_id IS NULL) AS missing_merchant_id,
+COUNT(*) FILTER (WHERE merchant_city IS NULL) AS missing_merchant_city,
+COUNT(*) FILTER (WHERE merchant_state IS NULL) AS missing_merchant_state,
+COUNT(*) FILTER (WHERE mcc IS NULL) AS missing_mcc,
+COUNT(*) FILTER (WHERE errors IS NULL) AS missing_errors
+FROM transactions_data;
+
+-- Output:
+-- Merchant_state had missing values
+-- Errors also had many missing values</code></pre>
+
+  </details>
+
+
+  <details>
+
+    <summary>Creating the Clean Transaction Table</summary>
+
+    <pre><code>-- Creating a clean transaction table
+-- Removing $ from amount and changing amount to NUMERIC
+
+CREATE TABLE clean_transactions_data AS
+SELECT id AS transaction_id,
+date,
+client_id AS customer_id,
+card_id,
+REPLACE(amount,'$','')::NUMERIC AS amount,
+use_chip,
+merchant_id,
+merchant_city,
+CASE
+WHEN use_chip='Online Transaction'
+AND merchant_state IS NULL
+THEN 'Online / N/A'
+ELSE merchant_state
+END AS merchant_state,
+zip,
+mcc,
+errors
+FROM transactions_data;</code></pre>
+
+  </details>
+
+
+  <details>
+
+    <summary>Transaction EDA</summary>
+
+    <pre><code>-- Checking total transactions, total value
+-- and average transaction amount
+
+SELECT COUNT(*) AS total_transactions,
+ROUND(SUM(amount),2) AS total_transaction_value,
+ROUND(AVG(amount),2) AS average_transaction_amount
+FROM clean_transactions_data;
+
+-- Output:
+-- Total transactions = 13305915
+-- Total transaction value = 571835522.28
+-- Average transaction amount = 42.98</code></pre>
+
+  </details>
+
+
+  <details>
+
+    <summary>Error Rate</summary>
+
+    <pre><code>-- Checking error rate by transaction method
+
+SELECT use_chip,
+COUNT(*) AS total_transactions,
+SUM(CASE
+WHEN errors&lt;&gt;'No Error'
+THEN 1
+ELSE 0
+END) AS transactions_with_errors,
+ROUND(
+100.0 * SUM(
+CASE
+WHEN errors&lt;&gt;'No Error'
+THEN 1
+ELSE 0
+END
+) / COUNT(*),2
+) AS error_rate_percentage
+FROM clean_transactions_data
+GROUP BY use_chip
+ORDER BY error_rate_percentage DESC;
+
+-- Output:
+-- Online = 2.28%
+-- Chip = 1.51%
+-- Swipe = 1.49%</code></pre>
+
+  </details>
+
+
+  <details>
+
+    <summary>Joining All Three Tables</summary>
+
+    <pre><code>-- Joining all three tables
+
+SELECT t.transaction_id,
+t.date,
+t.amount,
+u.customer_id,
+u.current_age,
+u.gender,
+u.credit_score,
+c.card_brand,
+c.card_type,
+c.credit_limit
+FROM clean_transactions_data t
+JOIN clean_cards_data c
+ON t.card_id=c.card_id
+JOIN clean_users_data u
+ON t.customer_id=u.customer_id
+LIMIT 20;</code></pre>
+
+  </details>
+
+
+  <details>
+
+    <summary>Simple CTE</summary>
+
+    <pre><code>-- Using a CTE to first count transactions for each customer
+-- Then showing the top 10 customers with the most transactions
+
+WITH customer_transactions AS (
+SELECT customer_id,
+COUNT(*) AS total_transactions
+FROM clean_transactions_data
+GROUP BY customer_id
+)
+
+SELECT customer_id,
+total_transactions
+FROM customer_transactions
+ORDER BY total_transactions DESC
+LIMIT 10;
+
+-- Output:
+-- Top 10 customers with the highest number of transactions</code></pre>
+
+  </details>
+
+</section>
+
+
+<section class="sql-section">
+
+  <h2>Skills Used</h2>
+
+  <div class="sql-tags">
+
+    <span class="sql-tag">CREATE TABLE</span>
+    <span class="sql-tag">ALTER TABLE</span>
+    <span class="sql-tag">UPDATE</span>
+    <span class="sql-tag">SELECT</span>
+    <span class="sql-tag">WHERE</span>
+    <span class="sql-tag">GROUP BY</span>
+    <span class="sql-tag">HAVING</span>
+    <span class="sql-tag">ORDER BY</span>
+    <span class="sql-tag">COUNT</span>
+    <span class="sql-tag">SUM</span>
+    <span class="sql-tag">AVG</span>
+    <span class="sql-tag">CASE</span>
+    <span class="sql-tag">INNER JOIN</span>
+    <span class="sql-tag">LEFT JOIN</span>
+    <span class="sql-tag">CTE</span>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+<div class="footer">
+
+  <p>© 2026 Simphiwe Sthembiso Sibisi</p>
+
+</div>
+
+
+</body>
+
+</html>

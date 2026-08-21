@@ -98,120 +98,175 @@
 </section>
 <br><br><br>
 <style>
+
 :root{
-  --bg:#0b0f19;
-  --card:#0f1729;
-  --ink:#eaeef8;
-  --muted:#97a0b5;
-  --line:#1f2a44;
-  --accent:#ffb6c1; /* soft pink that matches your button theme */
+--bg:#f5f6f8;
+--card:#ffffff;
+--ink:#222222;
+--muted:#6b7280;
+--line:#dddddd;
+--accent:#ffb6c1;
 }
 
-body{ background:var(--bg); color:var(--ink); }
+body{
+background:var(--bg);
+color:var(--ink);
+}
+
+.contact-section{
+max-width:1100px;
+margin:0 auto;
+padding:28px 20px 90px;
+}
 
 .contact-section h2{
-  font-size:26px;
-  margin:40px 165px  
-/*font-size: 1.1rem;
-  font-weight: 700;
-  margin: 14px 0;*/
+font-size:26px;
+margin:14px 0 35px;
+color:#222222;
 }
 
 .contact-card{
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 18px;
-  max-width: 720px;
-  margin: 6px auto 32px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+background:var(--card);
+border:1px solid var(--line);
+border-radius:14px;
+padding:18px;
+max-width:720px;
+margin:6px auto 32px;
+box-shadow:0 3px 12px rgba(0,0,0,.06);
 }
 
 .contact-header{
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  margin-bottom: 8px;
+display:flex;
+gap:14px;
+align-items:center;
+margin-bottom:8px;
 }
 
 .avatar{
-  width: 44px; height: 44px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent), #ffa0b3);
-  color:#241b22;
-  display:grid; place-items:center;
-  font-weight: 800;
-  letter-spacing: .5px;
+width:44px;
+height:44px;
+border-radius:10px;
+background:linear-gradient(135deg,var(--accent),#ffa0b3);
+color:#241b22;
+display:grid;
+place-items:center;
+font-weight:800;
+letter-spacing:.5px;
 }
 
-.contact-name{ font-weight: 700; }
-.contact-role{ color: var(--muted); font-size: .95rem; }
-.contact-location{ color: var(--muted); font-size: .9rem; }
+.contact-name{
+font-weight:700;
+color:#222222;
+}
+
+.contact-role{
+color:var(--muted);
+font-size:.95rem;
+}
+
+.contact-location{
+color:var(--muted);
+font-size:.9rem;
+}
 
 .contact-list{
-  list-style: none;
-  padding: 10px 0 0;
-  margin: 0;
-  border-top: 1px dashed var(--line);
+list-style:none;
+padding:10px 0 0;
+margin:0;
+border-top:1px dashed var(--line);
 }
 
 .contact-list li{
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: 10px;
-  padding: 12px 0;
-  border-bottom: 1px dashed var(--line);
+display:grid;
+grid-template-columns:28px 1fr;
+gap:10px;
+padding:12px 0;
+border-bottom:1px dashed var(--line);
 }
 
 .icon svg{
-  width: 22px; height: 22px; fill: var(--accent);
+width:22px;
+height:22px;
+fill:#e88499;
 }
 
-.label{ color: var(--muted); font-size: .85rem; }
-.value{
-  color: var(--ink);
-  text-decoration: none;
-  font-weight: 600;
+.label{
+color:var(--muted);
+font-size:.85rem;
 }
-.value:hover{ text-decoration: underline; }
+
+.value{
+color:#222222;
+text-decoration:none;
+font-weight:600;
+}
+
+.value:hover{
+text-decoration:underline;
+}
 
 .hint{
-  font-size: .82rem; color: var(--muted); margin-top: 2px;
+font-size:.82rem;
+color:var(--muted);
+margin-top:2px;
+}
+
+.hint a{
+color:#2457d6;
 }
 
 .contact-actions{
-  display: flex; flex-wrap: wrap; gap: 10px;
-  padding-top: 14px;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+padding-top:14px;
 }
 
 .btn{
-  display: inline-block;
-  padding: 10px 16px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  color: var(--ink);
-  text-decoration: none;
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+display:inline-block;
+padding:10px 16px;
+border:1px solid var(--line);
+border-radius:10px;
+background:#ffffff;
+color:#222222;
+text-decoration:none;
+transition:transform .15s ease,background .2s ease,border-color .2s ease;
 }
 
-.btn:hover{ transform: translateY(-1px); border-color:#2a3a6b; }
+.btn:hover{
+transform:translateY(-1px);
+background:#f5f6f8;
+border-color:#cccccc;
+text-decoration:none;
+}
+
 .btn.primary{
-  background: var(--accent);
-  color: #241b22;
-  border-color: #ff99aa;
-}
-.btn.primary:hover{
-  background:#ffa0b3; border-color:#ff7f9d;
+background:var(--accent);
+color:#241b22;
+border-color:#ff99aa;
 }
 
-@media (max-width:560px){
-  .contact-card{ padding:14px }
-  .contact-actions{ gap:8px }
+.btn.primary:hover{
+background:#ffa0b3;
+border-color:#ff7f9d;
 }
+
+@media(max-width:560px){
+
+.contact-card{
+padding:14px;
+}
+
+.contact-actions{
+gap:8px;
+}
+
+}
+
 </style>
 
   <div class="footer">
-    <p>© 2025 Simphiwe Sthembiso Sibisi </p>
+    <p>© 2026 Simphiwe Sthembiso Sibisi </p>
   </div>
 
 </body></html>
